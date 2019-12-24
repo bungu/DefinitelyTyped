@@ -2,49 +2,65 @@ import { Matcher, MatcherOptions } from './matches';
 import { SelectorMatcherOptions } from './query-helpers';
 import { WaitForElementOptions } from './wait-for-element';
 
-export type QueryByBoundAttribute = (
-    container: HTMLElement,
-    id: Matcher,
-    options?: MatcherOptions,
-) => HTMLElement | null;
+export interface QueryByBoundAttribute {
+    <T = HTMLElement>(container: HTMLElement, id: Matcher, options?: MatcherOptions): T | null;
+}
 
-export type AllByBoundAttribute = (container: HTMLElement, id: Matcher, options?: MatcherOptions) => HTMLElement[];
+export interface AllByBoundAttribute {
+    <T = HTMLElement>(container: HTMLElement, id: Matcher, options?: MatcherOptions): T[];
+}
 
-export type FindAllByBoundAttribute = (
-    container: HTMLElement,
-    id: Matcher,
-    options?: MatcherOptions,
-    waitForElementOptions?: WaitForElementOptions,
-) => Promise<HTMLElement[]>;
+export interface FindAllByBoundAttribute {
+    <T = HTMLElement>(
+        container: HTMLElement,
+        id: Matcher,
+        options?: MatcherOptions,
+        waitForElementOptions?: WaitForElementOptions,
+    ): Promise<T[]>;
+}
 
-export type GetByBoundAttribute = (container: HTMLElement, id: Matcher, options?: MatcherOptions) => HTMLElement;
+export interface GetByBoundAttribute {
+    <T extends HTMLElement = HTMLElement>(container: HTMLElement, id: Matcher, options?: MatcherOptions): T;
+}
 
-export type FindByBoundAttribute = (
-    container: HTMLElement,
-    id: Matcher,
-    options?: MatcherOptions,
-    waitForElementOptions?: WaitForElementOptions,
-) => Promise<HTMLElement>;
+export interface FindByBoundAttribute {
+    <T = HTMLElement>(
+        container: HTMLElement,
+        id: Matcher,
+        options?: MatcherOptions,
+        waitForElementOptions?: WaitForElementOptions,
+    ): Promise<T>;
+}
 
-export type QueryByText = (container: HTMLElement, id: Matcher, options?: SelectorMatcherOptions) => HTMLElement | null;
+export interface QueryByText {
+    <T = HTMLElement>(container: HTMLElement, id: Matcher, options?: SelectorMatcherOptions): T | null;
+}
 
-export type AllByText = (container: HTMLElement, id: Matcher, options?: SelectorMatcherOptions) => HTMLElement[];
+export interface AllByText {
+    <T = HTMLElement>(container: HTMLElement, id: Matcher, options?: SelectorMatcherOptions): T[];
+}
 
-export type FindAllByText = (
-    container: HTMLElement,
-    id: Matcher,
-    options?: SelectorMatcherOptions,
-    waitForElementOptions?: WaitForElementOptions,
-) => Promise<HTMLElement[]>;
+export interface FindAllByText {
+    <T = HTMLElement>(
+        container: HTMLElement,
+        id: Matcher,
+        options?: SelectorMatcherOptions,
+        waitForElementOptions?: WaitForElementOptions,
+    ): Promise<T[]>;
+}
 
-export type GetByText = (container: HTMLElement, id: Matcher, options?: SelectorMatcherOptions) => HTMLElement;
+export interface GetByText {
+    <T = HTMLElement>(container: HTMLElement, id: Matcher, options?: SelectorMatcherOptions): T;
+}
 
-export type FindByText = (
-    container: HTMLElement,
-    id: Matcher,
-    options?: SelectorMatcherOptions,
-    waitForElementOptions?: WaitForElementOptions,
-) => Promise<HTMLElement>;
+export interface FindByText {
+    <T = HTMLElement>(
+        container: HTMLElement,
+        id: Matcher,
+        options?: SelectorMatcherOptions,
+        waitForElementOptions?: WaitForElementOptions,
+    ): Promise<T>;
+}
 
 export interface ByRoleOptions extends MatcherOptions {
     /**
@@ -56,25 +72,54 @@ export interface ByRoleOptions extends MatcherOptions {
     hidden?: boolean;
 }
 
-export type AllByRole = (container: HTMLElement, role: Matcher, options?: ByRoleOptions) => HTMLElement[];
+export interface AllByRole {
+    <T = HTMLElement>(container: HTMLElement, role: Matcher, options?: ByRoleOptions): T[];
+}
 
-export type GetByRole = (container: HTMLElement, role: Matcher, options?: ByRoleOptions) => HTMLElement;
+export interface GetByRole {
+    <T = HTMLElement>(container: HTMLElement, role: Matcher, options?: ByRoleOptions): T;
+}
 
-export type QueryByRole = (container: HTMLElement, role: Matcher, options?: ByRoleOptions) => HTMLElement | null;
+export interface QueryByRole {
+    <T = HTMLElement>(container: HTMLElement, role: Matcher, options?: ByRoleOptions): T | null;
+}
 
-export type FindByRole = (
-    container: HTMLElement,
-    role: Matcher,
-    options?: ByRoleOptions,
-    waitForElementOptions?: WaitForElementOptions,
-) => Promise<HTMLElement>;
+export interface FindByRole {
+    <T = HTMLElement>(
+        container: HTMLElement,
+        role: Matcher,
+        options?: ByRoleOptions,
+        waitForElementOptions?: WaitForElementOptions,
+    ): Promise<T>;
+}
 
-export type FindAllByRole = (
-    container: HTMLElement,
-    role: Matcher,
-    options?: ByRoleOptions,
-    waitForElementOptions?: WaitForElementOptions,
-) => Promise<HTMLElement[]>;
+export interface FindAllByRole {
+    <T = HTMLElement>(
+        container: HTMLElement,
+        role: Matcher,
+        options?: ByRoleOptions,
+        waitForElementOptions?: WaitForElementOptions,
+    ): Promise<T[]>;
+}
+
+export type QueryMap = {
+    [key: string]:
+        | QueryByBoundAttribute
+        | AllByBoundAttribute
+        | FindAllByBoundAttribute
+        | GetByBoundAttribute
+        | FindByBoundAttribute
+        | QueryByText
+        | AllByText
+        | FindAllByText
+        | GetByText
+        | FindByText
+        | AllByRole
+        | GetByRole
+        | QueryByRole
+        | FindByRole
+        | FindAllByRole;
+};
 
 export const getByLabelText: GetByText;
 export const getAllByLabelText: AllByText;

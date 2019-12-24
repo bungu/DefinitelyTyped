@@ -1,5 +1,5 @@
 import { Matcher } from './matches';
-import * as queries from './queries';
+import { QueryMap } from './queries';
 
 export type BoundFunction<T> = T extends (
     attribute: string,
@@ -13,16 +13,15 @@ export type BoundFunction<T> = T extends (
     : never;
 export type BoundFunctions<T> = { [P in keyof T]: BoundFunction<T[P]> };
 
-export type Query = (
-    container: HTMLElement,
-    ...args: any[]
-) => Error | Promise<HTMLElement[]> | Promise<HTMLElement> | HTMLElement[] | HTMLElement | null;
-
-export interface Queries {
-    [T: string]: Query;
+export interface Query {
+    <T = HTMLElement>(container: HTMLElement, ...args: any[]): Error | Promise<T[]> | Promise<T> | T[] | T | null;
 }
 
-export function getQueriesForElement<T extends Queries = typeof queries>(
+export type Queries = {
+    [T in keyof QueryMap]: QueryMap[T];
+};
+
+export function getQueriesForElement<T extends Queries = QueryMap>(
     element: HTMLElement,
     queriesToBind?: T,
 ): BoundFunctions<T>;

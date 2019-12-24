@@ -1,6 +1,6 @@
 import { BoundFunctions, Queries } from './get-queries-for-element';
-import * as queries from './queries';
+import { QueryMap } from './queries';
 
-export type Screen<Q extends Queries = typeof queries> = BoundFunctions<Q>;
+export type Screen<Q extends Queries = QueryMap> = BoundFunctions<Q>;
 
 export const screen: Screen;

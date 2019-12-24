@@ -12,6 +12,17 @@ async function testQueries() {
     queryAllByText(element, 'bar');
     await findAllByText(element, 'bar');
 
+    // specified query result
+    getByText<HTMLInputElement>(element, 'foo').value;
+    const queryByTextResult = queryByText<HTMLInputElement>(element, 'foo');
+    if (queryByTextResult) console.assert(queryByTextResult.value === 'foo');
+    (await findByText<HTMLInputElement>(element, 'foo')).value;
+    getAllByText<HTMLInputElement>(element, 'bar')[0].value;
+    queryAllByText<HTMLInputElement>(element, 'bar')[0].value;
+    (await findAllByText<HTMLInputElement>(element, 'bar'))[0].value;
+    const queryByRoleResult = queryByRole<HTMLInputElement>(element, 'form');
+    if (queryByRoleResult) console.assert(queryByRoleResult.value === 'foo');
+
     // screen queries
     screen.getByText('foo');
     screen.queryByText('foo');
@@ -19,6 +30,15 @@ async function testQueries() {
     screen.getAllByText('bar');
     screen.queryAllByText('bar');
     await screen.findAllByText('bar');
+
+    // specified screen queries
+    screen.getByText<HTMLInputElement>('foo').value;
+    const screenQueryByTextResult = screen.queryByText('foo');
+    if (screenQueryByTextResult) console.assert(screenQueryByTextResult.value === 'foo');
+    (await screen.findByText('foo')).value;
+    screen.getAllByText('bar')[0].value;
+    screen.queryAllByText('bar')[0].value;
+    (await screen.findAllByText('bar'))[0].value;
 }
 
 function testByRole() {
